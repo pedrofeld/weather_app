@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Weather App 🌤️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para consultar a temperatura e condições climáticas de qualquer lugar do mundo usando as APIs da Open Meteo.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Busca inteligente de locais**: Digite o nome de qualquer cidade, estado ou país
+- **Geocodificação automática**: Sistema busca automaticamente latitude, longitude e elevação
+- **Dados climáticos em tempo real**: Temperatura, umidade, velocidade do vento e precipitação
+- **Interface intuitiva**: Autocomplete com sugestões de lugares
+- **Sem necessidade de API key**: Todas as APIs são gratuitas e públicas
 
-## React Compiler
+## 🛠️ Tecnologias Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 18** + **TypeScript**
+- **Vite** - Build tool
+- **Open Meteo API** - Dados climáticos
+- **Open Meteo Geocoding API** - Conversão de nomes de lugares para coordenadas
 
-## Expanding the ESLint configuration
+## 📦 APIs Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Open Meteo Geocoding API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Endpoint**: `https://geocoding-api.open-meteo.com/v1/search`
+- **Função**: Converte nomes de lugares em coordenadas (latitude, longitude, elevação)
+- **Suporte**: Múltiplos idiomas, incluindo português
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Open Meteo Weather API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Endpoint**: `https://api.open-meteo.com/v1/forecast`
+- **Função**: Fornece dados climáticos em tempo real
+- **Dados disponíveis**: Temperatura, umidade, velocidade do vento, código do clima
+
+## 🏃 Como Executar
+
+```bash
+# Instalar dependências
+npm install
+
+# Executar em modo de desenvolvimento
+npm run dev
+
+# Build para produção
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Estrutura do Projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/
+│   └── LookWeatherByPlace.tsx    # Componente principal de busca e exibição
+├── services/
+│   └── geocodingService.ts       # Serviço de geocodificação
+├── types/
+│   └── geocoding.ts              # Tipos TypeScript
+├── pages/
+│   └── SearchForAPlace.tsx       # Página de busca
+└── App.tsx                        # Componente raiz
+```
+
+## 💡 Como Funciona
+
+1. **Usuário digita o nome do lugar** (ex: "São Paulo")
+2. **Sistema busca automaticamente** na API de Geocoding
+3. **Resultados são exibidos** com informações detalhadas (cidade, estado, país)
+4. **Ao selecionar um lugar**, o sistema:
+   - Obtém latitude, longitude e elevação automaticamente
+   - Busca os dados climáticos atuais na Weather API
+   - Exibe temperatura, umidade e velocidade do vento
+
+## 🌍 Exemplo de Uso
+
+```typescript
+// Buscar um lugar
+const results = await searchPlaces("Rio de Janeiro");
+
+// Resultado inclui:
+// - latitude e longitude
+// - elevação
+// - timezone
+// - nome completo (cidade, estado, país)
+// - população (quando disponível)
+```
+
+## 📝 Licença
+
+Projeto desenvolvido para fins educacionais.

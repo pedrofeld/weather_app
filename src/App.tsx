@@ -1,7 +1,9 @@
+import Home from "./pages/Home.tsx";
+
 function App() {
   return (
     <>
-      <h1>Wheather App</h1>
+      <Home />
     </>
   );
 }
